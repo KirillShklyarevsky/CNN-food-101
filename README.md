@@ -1,30 +1,62 @@
-# Food-101 classification example using CNN on tf 2.x + keras
+# 1) Описание архитектуры нейронной сети:
 
-The goal of that lab is to create CNN that solves Food-101 Classification task
-
-Pre-requisites:
-1. TensorFlow 2.x environment
-
-Steps to reproduce results:
-1. Clone the repository:
+   1) Создание тензора данных.
 ```
-git clone git@github.com:AlexanderSoroka/CNN-food-101.git
+inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
 ```
-2. Download [Food-101](https://www.kaggle.com/kmader/food41) from kaggle to archive.zip
-- unpack dataset `unzip archive.zip`
-- change current directory to the folder with unpacked dataset
-
-3. Generate TFRecords with build_image_data.py script:
-
+   2) Свёрточный слой с 8-ю фильтрами и ядром свёртки размером 3x3.
 ```
-python build_image_data.py --input <dataset root path> --output <tf output path>
+x = tf.keras.layers.Conv2D(filters=8, kernel_size=3)(inputs)
 ```
-
-Validate that total size of generated tfrecord files is close ot original dataset size
-
-4. Run train.py to train pre-defined CNN:
+   3) Уменьшение размера матрицы признаков выбором максимального значения.
 ```
-python train.py --train '<dataset root path>/train*'
+x = tf.keras.layers.MaxPool2D()(x)
+```
+   4) Перевод многоменроного тензора в одномерный вектор.
+```
+x = tf.keras.layers.Flatten()(x)
+```
+   5) Полносвязный слой с 101-м выходом и функцией активации softmax, которая приводит результат к вероятностному виду.
+```
+outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
 ```
 
-5. Modify model and have fun
+# 2) Графики обучения для предоставленной реализации нейронной сети.
+ 
+  - Синий - валидация
+  - Оранженвый - обучение
+  
+   График метрики качества:
+   ![SVG example](./epoch_categorical_accuracy_1.svg)
+
+  График функции потерь:
+   ![SVG example](./epoch_loss_1.svg)
+
+# 3) Графики обучения для произвольной архитектуры с количеством сверточных слоев >3.
+  1) Описание архитектуры нейронной сети.
+      Нейронная сеть с 4-мя сверточными слоями с 8-ю фильтрами и 3 слоями макспулинга.
+```
+    inputs = tf.keras.Input(shape=(RESIZE_TO, RESIZE_TO, 3))
+    x = tf.keras.layers.Conv2D(filters=8, kernel_size=3)(inputs)
+    x = tf.keras.layers.MaxPool2D()(x)
+    x = tf.keras.layers.Conv2D(filters=8, kernel_size=3)(x)
+    x = tf.keras.layers.MaxPool2D()(x)
+    x = tf.keras.layers.Conv2D(filters=8, kernel_size=3)(x)
+    x = tf.keras.layers.MaxPool2D()(x)
+    x = tf.keras.layers.Conv2D(filters=8, kernel_size=3)(x)
+    x = tf.keras.layers.Flatten()(x)
+    outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
+```
+   1) Графики обучения.
+
+  - Синий - валидация
+  - Оранженвый - обучение
+  
+   Визуализация выбранной метрики качества:
+   ![SVG example](./epoch_categorical_accuracy_2.svg)
+
+   Визуализация выбранной функции потерь:
+   ![SVG example](./epoch_loss_2.svg)
+
+
+# 4) Анализ полученных результатов
