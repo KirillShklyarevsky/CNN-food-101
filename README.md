@@ -47,7 +47,7 @@ outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.sof
     x = tf.keras.layers.Flatten()(x)
     outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
 ```
-   1) Графики обучения.
+   2) Графики обучения.
 
   - Синий - валидация
   - Оранженвый - обучение
@@ -60,3 +60,5 @@ outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.sof
 
 
 # 4) Анализ полученных результатов
+
+   По полученным результатам и графикам можем сделать выводы: по виду графика функции потерь при не измененной нейронной сети у нас произошло переобучение, сравнив графики метрики качества можно заметить, что добавление 3-х свёрточных слоев и 2-х слоев макспулинга не привело к улучщению обучения, а также увеличение глубины нейронной сети привело к увеличению времени обучения.
