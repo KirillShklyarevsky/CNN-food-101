@@ -1,30 +1,26 @@
-# Food-101 classification example using CNN on tf 2.x + keras
+# 1) Графики обучения для нейронной сети EfficientNet-B0 со случайным начальным приближением.
+ 
+  - Синий - валидация
+  - Оранжевый - обучение
+  
+   График метрики качества:
+   ![SVG example](./epoch_categorical_accuracy_1.svg)
 
-The goal of that lab is to create CNN that solves Food-101 Classification task
+  График функции потерь:
+   ![SVG example](./epoch_loss_1.svg)
 
-Pre-requisites:
-1. TensorFlow 2.x environment
+# 2) Графики обучения для нейронной сети EfficientNet-B0 (предобученная на базе изображений imagenet) с использованием техники обучения Transfer Learning.
+  
+  - Синий - валидация
+  - Оранжевый - обучение
+  
+   График метрики качества:
+   ![SVG example](./epoch_categorical_accuracy_2.svg)
 
-Steps to reproduce results:
-1. Clone the repository:
-```
-git clone git@github.com:AlexanderSoroka/CNN-food-101.git
-```
-2. Download [Food-101](https://www.kaggle.com/kmader/food41) from kaggle to archive.zip
-- unpack dataset `unzip archive.zip`
-- change current directory to the folder with unpacked dataset
+   График функции потерь:
+   ![SVG example](./epoch_loss_2.svg)
 
-3. Generate TFRecords with build_image_data.py script:
 
-```
-python build_image_data.py --input <dataset root path> --output <tf output path>
-```
+# 3) Анализ полученных результатов
 
-Validate that total size of generated tfrecord files is close ot original dataset size
-
-4. Run train.py to train pre-defined CNN:
-```
-python train.py --train '<dataset root path>/train*'
-```
-
-5. Modify model and have fun
+   Используя нейронную сеть со случайным начальным приближением, мы получили низкую точность, что связано с малым колличеством данных для обучения. Используя технику обучения Transfer Learning был получен результат с довольно неплохой точностью. Исходя из этого использование Transfer Learning привело к улучшению качества, а так же к увеличению скорости обучения из-за использования предобученной сети.
