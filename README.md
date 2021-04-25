@@ -1,30 +1,35 @@
-# Food-101 classification example using CNN on tf 2.x + keras
-
-The goal of that lab is to create CNN that solves Food-101 Classification task
-
-Pre-requisites:
-1. TensorFlow 2.x environment
-
-Steps to reproduce results:
-1. Clone the repository:
+# 1) Графики обучения для нейронной сети EfficientNet-B0 с использованием Transfer Learning и различных фиксированных темпах обучения 0.01, 0.001, 0.0001
+ Изменения фиксированных темпов обучения.
 ```
-git clone git@github.com:AlexanderSoroka/CNN-food-101.git
+    optimizer=tf.optimizers.Adam(lr=0.01)
 ```
-2. Download [Food-101](https://www.kaggle.com/kmader/food41) from kaggle to archive.zip
-- unpack dataset `unzip archive.zip`
-- change current directory to the folder with unpacked dataset
-
-3. Generate TFRecords with build_image_data.py script:
-
 ```
-python build_image_data.py --input <dataset root path> --output <tf output path>
+    optimizer=tf.optimizers.Adam(lr=0.001)
 ```
-
-Validate that total size of generated tfrecord files is close ot original dataset size
-
-4. Run train.py to train pre-defined CNN:
 ```
-python train.py --train '<dataset root path>/train*'
+    optimizer=tf.optimizers.Adam(lr=0.0001)
 ```
+  - Легенда:
+   ![](./accuracy_all_fixed.png)
+  
+   График метрики качества:
+   ![SVG example](./epoch_categorical_accuracy_1.svg)
 
-5. Modify model and have fun
+  График функции потерь:
+   ![SVG example](./epoch_loss_1.svg)
+
+# 2) Графики обучения для нейронной сети EfficientNet-B0 (предобученная на базе изображений imagenet) с использованием техники обучения Transfer Learning.
+  
+  - Синий - валидация
+  - Оранжевый - обучение
+  
+   График метрики качества:
+   ![SVG example](./epoch_categorical_accuracy_2.svg)
+
+   График функции потерь:
+   ![SVG example](./epoch_loss_2.svg)
+
+
+# 3) Анализ полученных результатов
+
+   Сравнив графики обучения для нейронной сети EfficientNet-B0 со случайным начальным приближением и графики обучения для нейронной сети EfficientNet-B0 (предобученная на базе изображений imagenet) с использованием техники обучения Transfer Learning. Видно, что используя технику обучения Transfer Learning был получен результат с большей точностью чем со случайным начальным приближение, около 83% на обучении и 63% на валидации в то время как со случайным начальным приближением максимальная точность была 34% на обучении и 28% на валидации, а так же это привело к уменьшению времени обучения из-за использования предобученной сети, что сократило время обучения с ≈6 часов до полутора часа.
