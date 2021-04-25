@@ -10,7 +10,7 @@
     optimizer=tf.optimizers.Adam(lr=0.0001)
 ```
   - Легенда:
-   ![](./Images/accuracy_all_fixed.png)
+   ![](./Images/Lr_Accur.png)
   
    График метрики качества:
    ![SVG example](./Images/epoch_categorical_accuracy_1.svg)
