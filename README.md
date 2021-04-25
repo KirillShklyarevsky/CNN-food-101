@@ -26,13 +26,13 @@
 # 2) Графики обучения для нейронной сети EfficientNet-B0 с использованием политики изменения темпа обучения - косинусное затухание.
  Изменения начальных темпов обучения для косинусного затухания.
 ```
-    LearningRateScheduler(tf.keras.experimental.CosineDecay(0.01, 1000, 0.0)),
+    LearningRateScheduler(tf.keras.experimental.CosineDecay(0.01, 1000, 0.0))
 ```
 ```
-    LearningRateScheduler(tf.keras.experimental.CosineDecay(0.001, 1000, 0.0)),
+    LearningRateScheduler(tf.keras.experimental.CosineDecay(0.001, 1000, 0.0))
 ```
 ```
-    LearningRateScheduler(tf.keras.experimental.CosineDecay(0.0001, 1000, 0.0)),
+    LearningRateScheduler(tf.keras.experimental.CosineDecay(0.0001, 1000, 0.0))
 ```
   - Легенда:
 
@@ -48,7 +48,46 @@
   График функции потерь:
    ![SVG example](./Images/epoch_loss_2.svg)
 
+# 3) Графики обучения для нейронной сети EfficientNet-B0 с использованием политики изменения темпа обучения - косинусное затухание с перезапусками.
+ Изменения начальных темпов обучения для косинусного затухания с перезапусками.
+```
+    LearningRateScheduler(tf.keras.experimental.CosineDecayRestarts(0.001, 1000, 2.0, 1.0, 0.0, None))
+```
+```
+    LearningRateScheduler(tf.keras.experimental.CosineDecayRestarts(0.0001, 1000, 2.0, 1.0, 0.0, None))
+```
+```
+    LearningRateScheduler(tf.keras.experimental.CosineDecayRestarts(0.0002, 1000, 2.0, 1.0, 0.0, None))
+```
+  - Легенда:
 
-# 3) Анализ полученных результатов
+   ![](./Images/CDR_Accur.png)
+  
+   График метрики качества:
+   ![SVG example](./Images/epoch_categorical_accuracy_3.svg)
+   
+   - Легенда:
+
+   ![](./Images/CDR_Loss.png)
+
+  График функции потерь:
+   ![SVG example](./Images/epoch_loss_3.svg)
+   
+   # 4) Графики обучения наилучших темпов обучения для фиксированных темпов обучения, косинусного затухания и косинусного затухания с перезапусками.
+  - Легенда:
+
+   ![](./Images/LrCdCdR_Accur.png )
+  
+   График метрики качества:
+   ![SVG example](./Images/epoch_categorical_accuracy_4.svg)
+   
+   - Легенда:
+
+   ![](./Images/LrCdCdR_Loss.png)
+
+  График функции потерь:
+   ![SVG example](./Images/epoch_loss_4.svg)
+   
+# 5) Анализ полученных результатов
 
    Сравнив графики обучения для нейронной сети EfficientNet-B0 со случайным начальным приближением и графики обучения для нейронной сети EfficientNet-B0 (предобученная на базе изображений imagenet) с использованием техники обучения Transfer Learning. Видно, что используя технику обучения Transfer Learning был получен результат с большей точностью чем со случайным начальным приближение, около 83% на обучении и 63% на валидации в то время как со случайным начальным приближением максимальная точность была 34% на обучении и 28% на валидации, а так же это привело к уменьшению времени обучения из-за использования предобученной сети, что сократило время обучения с ≈6 часов до полутора часа.
