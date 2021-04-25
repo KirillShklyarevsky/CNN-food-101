@@ -10,13 +10,13 @@
     optimizer=tf.optimizers.Adam(lr=0.0001)
 ```
   - Легенда:
-   ![](./accuracy_all_fixed.png)
+   ![](/accuracy_all_fixed.png)
   
    График метрики качества:
-   ![SVG example](./epoch_categorical_accuracy_1.svg)
+   ![SVG example](/epoch_categorical_accuracy_1.svg)
 
   График функции потерь:
-   ![SVG example](./epoch_loss_1.svg)
+   ![SVG example](/epoch_loss_1.svg)
 
 # 2) Графики обучения для нейронной сети EfficientNet-B0 (предобученная на базе изображений imagenet) с использованием техники обучения Transfer Learning.
   
