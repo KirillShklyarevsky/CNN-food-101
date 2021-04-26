@@ -74,9 +74,11 @@ def main():
   validation_dataset = dataset.skip(train_size)
 
   model = build_model()
+ 
+  CD_Lr = tf.keras.experimental.CosineDecay(0.01, 4000, 0.001)
 
   model.compile(
-    optimizer=tf.optimizers.Adam(lr=0.001),
+    optimizer=tf.optimizers.Adam(CD_Lr),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
@@ -88,7 +90,6 @@ def main():
     validation_data=validation_dataset,
     callbacks=[
       tf.keras.callbacks.TensorBoard(log_dir),
-      LearningRateScheduler(tf.keras.experimental.CosineDecay(0.005, 10, 0.0001)),
     ]
   )
 
