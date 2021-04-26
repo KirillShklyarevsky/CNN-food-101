@@ -75,10 +75,8 @@ def main():
 
   model = build_model()
  
-  CD_Lr = tf.keras.experimental.CosineDecay(0.01, 4000, 0.001)
-
   model.compile(
-    optimizer=tf.optimizers.Adam(CD_Lr),
+    optimizer=tf.optimizers.Adam(0.001),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
