@@ -1,5 +1,6 @@
 # 1) Графики обучения для нейронной сети EfficientNet-B0 с использованием Transfer Learning и различных фиксированных темпах обучения 0.01, 0.001, 0.0001
  Изменения фиксированных темпов обучения.
+ lr - темп обучения.
 ```
     optimizer=tf.optimizers.Adam(lr=0.01)
 ```
@@ -23,27 +24,32 @@
   График функции потерь:
    ![SVG example](./Images/epoch_loss_1.svg)
 
+  # Анализ: 
+  По графику метрики качества можно заметить, что наибольшая точность на валидации в 67,5% достигается при темпе обучения 0.0001, а так же минимальное значение на графике потерь для валидации среди выбранных фиксированных темпах обучения. Можно выбрать темп обучения равный 0.0001 оптимальным среди нашей выборки.
+
 # 2) Графики обучения для нейронной сети EfficientNet-B0 с использованием политики изменения темпа обучения - косинусное затухание.
- Изменения начальных темпов обучения для косинусного затухания.
+ Изменения параметров косинусного затухания.
+ 
+ initial_learning_rate - начальный темп обучения.
+ 
+ decay_steps - количество шагов для затухания темпа.
+ 
+ alpha - ограничение минимального темпа обучения (initial_learning_rate * alpha).
+ 
 ```
-    LearningRateScheduler(tf.keras.experimental.CosineDecay(0.01, 1000, 0.0))
+    tf.keras.experimental.CosineDecay(initial_learning_rate, decay_steps, alpha)
 ```
-```
-    LearningRateScheduler(tf.keras.experimental.CosineDecay(0.001, 1000, 0.0))
-```
-```
-    LearningRateScheduler(tf.keras.experimental.CosineDecay(0.0001, 1000, 0.0))
-```
+
   - Легенда:
 
-   ![](./Images/CD_Accur.png)
+   ![](./Images/CD_Accur_1.png)
   
    График метрики качества:
    ![SVG example](./Images/epoch_categorical_accuracy_2.svg)
    
    - Легенда:
 
-   ![](./Images/CD_Loss.png)
+   ![](./Images/CD_Loss_1.png)
 
   График функции потерь:
    ![SVG example](./Images/epoch_loss_2.svg)
