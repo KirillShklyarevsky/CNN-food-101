@@ -76,7 +76,7 @@ def main():
   model = build_model()
  
   model.compile(
-    optimizer=tf.optimizers.Adam(0.001),
+    optimizer=tf.optimizers.Adam(0.0001),
     loss=tf.keras.losses.categorical_crossentropy,
     metrics=[tf.keras.metrics.categorical_accuracy],
   )
