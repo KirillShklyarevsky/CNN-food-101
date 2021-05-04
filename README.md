@@ -1,29 +1,34 @@
-# 1) Графики обучения для нейронной сети EfficientNet-B0 с использованием Transfer Learning и различных фиксированных темпах обучения 0.01, 0.001, 0.0001
- Изменения фиксированных темпов обучения.
+# 1) Графики обучения для нейронной сети EfficientNet-B0 с использованием Transfer Learning и техники аугментации данных "Случайное горизонтальное и вертикальное отображение"
+ Изменения типов отображения.
 ```
-    optimizer=tf.optimizers.Adam(lr=0.01)
-```
-```
-    optimizer=tf.optimizers.Adam(lr=0.001)
+    data_augmentation = tf.keras.layers.experimental.preprocessing.RandomFlip(mode="horizontal", seed=None, name=None)(inputs)
 ```
 ```
-    optimizer=tf.optimizers.Adam(lr=0.0001)
+    data_augmentation = tf.keras.layers.experimental.preprocessing.RandomFlip(mode="vertical", seed=None, name=None)(inputs)
+```
+```
+    data_augmentation = tf.keras.layers.experimental.preprocessing.RandomFlip(mode="horizontal_and_vertical", seed=None, name=None)(inputs)
 ```
   - Легенда:
 
-   ![](./Images/Lr_Accur.png)
+   ![](./Images/Flip_Acur.png)
   
-   График метрики качества:
+   График метрики качества (на валидации):
    ![SVG example](./Images/epoch_categorical_accuracy_1.svg)
 
   - Легенда:
 
-   ![](./Images/Lr_Loss.png)
+   ![](./Images/Flip_Loss.png)
 
-  График функции потерь:
+  График функции потерь (на валидации):
    ![SVG example](./Images/epoch_loss_1.svg)
 
-# 2) Графики обучения для нейронной сети EfficientNet-B0 с использованием политики изменения темпа обучения - косинусное затухание.
+Наилучшим параметром отображения оказалось горизонтальное отображение. При нем значения метрики точности достигло 67,58%. На графике функции потерь горизонтального отображения наблюдаются наименьшие значения 1,208. 
+
+Результат применения техники аугментации данных "Горизонтальное отображение"
+![](./Images/img_horizontal.jpg)
+
+# 2) Графики обучения для нейронной сети EfficientNet-B0 с использованием Transfer Learning и техники аугментации данных "Использование случайной части изображения" 
  Изменения начальных темпов обучения для косинусного затухания.
 ```
     LearningRateScheduler(tf.keras.experimental.CosineDecay(0.01, 1000, 0.0))
@@ -36,16 +41,16 @@
 ```
   - Легенда:
 
-   ![](./Images/CD_Accur.png)
+   ![](./Images/Crop_Accur.png)
   
-   График метрики качества:
+   График метрики качества (на валидации):
    ![SVG example](./Images/epoch_categorical_accuracy_2.svg)
    
    - Легенда:
 
-   ![](./Images/CD_Loss.png)
+   ![](./Images/Crop_Loss.png)
 
-  График функции потерь:
+  График функции потерь (на валидации):
    ![SVG example](./Images/epoch_loss_2.svg)
 
 # 3) Графики обучения для нейронной сети EfficientNet-B0 с использованием политики изменения темпа обучения - косинусное затухание с перезапусками.
@@ -61,31 +66,31 @@
 ```
   - Легенда:
 
-   ![](./Images/CDR_Accur.png)
+   ![](./Images/Rot_Accur.png)
   
-   График метрики качества:
+   График метрики качества (на валидации):
    ![SVG example](./Images/epoch_categorical_accuracy_3.svg)
    
    - Легенда:
 
-   ![](./Images/CDR_Loss.png)
+   ![](./Images/Rot_Locc.png)
 
-  График функции потерь:
+  График функции потерь (на валидации):
    ![SVG example](./Images/epoch_loss_3.svg)
    
    # 4) Графики обучения наилучших темпов обучения для фиксированных темпов обучения, косинусного затухания и косинусного затухания с перезапусками.
   - Легенда:
 
-   ![](./Images/LrCdCdR_Accur.png )
+   ![](./Images/Com_Acc.png)
   
-   График метрики качества:
+   График метрики качества (на валидации):
    ![SVG example](./Images/epoch_categorical_accuracy_4.svg)
    
    - Легенда:
 
-   ![](./Images/LrCdCdR_Loss.png)
+   ![](./Images/Comb_Loss.png)
 
-  График функции потерь:
+  График функции потерь (на валидации):
    ![SVG example](./Images/epoch_loss_4.svg)
    
 # 5) Анализ полученных результатов
