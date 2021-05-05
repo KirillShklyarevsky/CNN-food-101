@@ -63,6 +63,10 @@ def build_model():
     outputs = tf.keras.layers.Dense(NUM_CLASSES, activation=tf.keras.activations.softmax)(x)
     return tf.keras.Model(inputs=inputs, outputs=outputs)
 
+def unfreeze_model(model):
+    for layer in model.layers:
+        if not isinstance(layer, tf.keras.layers.BatchNormalization):
+            layer.trainable = True
 
 def main():
   args = argparse.ArgumentParser()
@@ -92,6 +96,21 @@ def main():
     ]
   )
 
+  unfreeze_model(model)
+
+  model.compile(
+      optimizer=tf.optimizers.Adam(1e-7),
+      loss=tf.keras.losses.categorical_crossentropy,
+      metrics=[tf.keras.metrics.categorical_accuracy],
+  )
+  model.fit(
+      train_dataset,
+      epochs=10,
+      validation_data=validation_dataset,
+      callbacks=[
+          tf.keras.callbacks.TensorBoard(log_dir),
+      ]
+  )
 
 if __name__ == '__main__':
     main()
