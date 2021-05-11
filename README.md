@@ -20,19 +20,17 @@
    
   - Легенда:
 
-  - Синий - валидация
-  - Оранженвый - обучение
+   ![](.Images/val_acc.png)
   
    График метрики качества:
-   ![SVG example](./Images/epoch_categorical_accuracy(18).svg )
+   ![SVG example](./Images/epoch_categorical_accuracy(20).svg)
    
    - Легенда:
 
-  - Синий - валидация
-  - Оранженвый - обучение
+   ![](.Images/val_acc.png)
 
   График функции потерь:
-   ![SVG example](./Images/epoch_loss(19).svg)
+   ![SVG example](./Images/epoch_loss(21).svg)
    
    
 # 3) Анализ полученных результатов
