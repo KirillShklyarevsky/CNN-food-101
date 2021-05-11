@@ -22,14 +22,14 @@
    
   - Легенда:
 
-   ![](.Images/val_acc.png)
+   ![](./Images/val_acc.png)
   
    График метрики качества (на валидации):
    ![SVG example](./Images/epoch_categorical_accuracy(20).svg)
    
    - Легенда:
 
-   ![](.Images/val_acc.png)
+  ![](./Images/val_acc.png)
 
   График функции потерь (на валидации):
    ![SVG example](./Images/epoch_loss(21).svg)
